@@ -63,3 +63,21 @@ display: flex
 ```
 - height 는 부모한테 상속 받음
 - flex 로 가로 정렬
+
+### layout C-1
+``` html
+<div id="wrap">
+    <aside id="aside"></aside>
+    <main id="main"></main>
+</div>
+```
+- C유형은 크게 왼쪽(aside)와 오른쪽(main)으로 나눈 후 세분화 하였다
+
+
+- html 구조상 id = main 안에 id = slider, contents, footer 가 있지만 중복될 일이 없기때문에 css 작성할때 #main #slider {} 가 아닌, #slider 로 적어주었다
+
+
+- aside의 로고와 네비를 나눌 때 세로 정렬 이기 때문에 display:flex; 는 필요가 없다
+
+
+- contents 영역을 나눌떄 독립적인 주제 영역이라면 article 을 사용해도 괜찮다, 주제별로 묶일때 사용하는 section을 사용해도 괜찮다. 사용하기 나름
