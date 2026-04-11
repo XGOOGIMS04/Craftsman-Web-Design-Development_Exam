@@ -81,3 +81,10 @@ display: flex
 
 
 - contents 영역을 나눌떄 독립적인 주제 영역이라면 article 을 사용해도 괜찮다, 주제별로 묶일때 사용하는 section을 사용해도 괜찮다. 사용하기 나름
+
+### layout C-2
+``` css
+#aside h1 {}
+#aside nav {}
+```
+- logo, nav는 중복되지 않기때문에 클래스 선택자를 사용했던 이전과는 다른방법으로 h1, nav 태그 선택자를 사용해보았다
