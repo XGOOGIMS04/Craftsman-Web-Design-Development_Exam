@@ -88,3 +88,44 @@ display: flex
 #aside nav {}
 ```
 - logo, nav는 중복되지 않기때문에 클래스 선택자를 사용했던 이전과는 다른방법으로 h1, nav 태그 선택자를 사용해보았다
+
+
+### layout D-1
+- 크게 세 aside, main, footer  세 영역으로 나누었다
+
+``` css
+#main {
+    width: calc(100% - 200px);
+}
+```
+- main 은 aisde 와 달리 반응형이여서, 정확히 픽셀로 지정할 수 없다.
+- 또한, 퍼센트와 픽셀은 같이 쓸 수 없음 -> calc()로 사용하였다
+
+``` css 
+#wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+```
+- aside, main, footer를 한줄에 억지로 넣으려고 하기에 한줄에 다 붙어버린다 
+- flex-wrap: wrap;을 사용하여 공간이 부족하면 자동으로 내려가도록 하였다
+
+
+``` css
+#slider .link {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+```
+``` css
+#slider {
+    position: relative;
+}
+```
+- 링크를 slider 위로 올리기 위해 link에 position: absolute; 를 사용해준다
+- absolute; 를 사용했으면 반드시 방향을 지정해줘야하며, 기준점이 되는 relative를 설정해야한다
+- 단, position: absolute; 를 자주 쓰게되면 반응형이 어려워진다는 단점이 있다
+
+
+##### 새로 알게된 단축키 : 태그 선택하고 command + d => 태그 동시 선택 가능
