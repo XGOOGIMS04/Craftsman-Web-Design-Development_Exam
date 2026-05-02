@@ -129,3 +129,51 @@ display: flex
 
 
 ##### 새로 알게된 단축키 : 태그 선택하고 command + d => 태그 동시 선택 가능
+
+### layout E-1(위아래 반응형)
+``` html
+<div id="wrap">
+    <main id="main"></main>
+    <footer id="footer"></footer>
+</div>
+```
+- 크게 구조를 main(A, B, C) 과 footer(D) 로 나누었다
+
+``` css
+#main {
+    width: 100%;
+    height: calc(100vh - 120px);
+    background-color: #efefef;
+}
+```
+- E유형에서 footer 영역을 제외한 높이가 100%으로 맞춰야한다
+- height는 % 라는걸 인식할 수 없다(제일 처음 height에 %를 쓸때?..)
+- 그럴때 쓰는 단위는 vh, 내 화면을 기준으로 처리해준다. 
+- ex. 100vh = 화면을 100등분을 꽉 채워라
+
+``` html
+<main id="main">
+    <header id="header"></header>
+    <section id="contents"></section>
+    <article id="slider"></article>
+</main>
+```
+``` css
+#header {
+    width: 200px;
+    height: 100%; /* height에 % 가능 */
+    background: #efefef;
+}
+```
+- #main 안의 A, B, C는 각각  header, contents, slider 영역으로 나누었다
+- 부모인 main의 height 값이 정해져 있으므로 자식인 A, B, C에선 %가 먹힌다
+
+
+``` css
+#header .logo {
+    width: 100%;
+    height: 10%;
+    background-color: #e3e3e3;
+}
+```
+- 위아래 다 반응형이라서 강사님은 .logo 높이도 %로 작성한거같음
