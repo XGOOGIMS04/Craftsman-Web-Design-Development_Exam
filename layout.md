@@ -177,3 +177,31 @@ display: flex
 }
 ```
 - 위아래 다 반응형이라서 강사님은 .logo 높이도 %로 작성한거같음
+
+### layout E-4 
+``` css 
+#footer .footer1 {
+    width: 200px; /* 200px 고정 */
+    height: 120px;
+    background-color: #a3a3a3;
+}
+#footer .footer2 {
+     width: calc(100% - 500px); /* calc 사용 */
+}
+#footer .footer2 .footer2-1 {
+    width: 100%;
+    height: 60px;
+    background-color: #9d9d9d;
+}
+#footer .footer2 .footer2-2 {
+    width: 100%;
+    height: 60px;
+    background-color: #929292;
+}
+#footer .footer3 {
+    width: 300px; /* 감잡아서 300px */
+    height: 120px;
+    background-color: #838383;
+}
+```
+- footer 레이아웃 에서는 logo 영역이 200px에 맞춰줘있다. 그래서 footer css를 위 처럼 해보았다
