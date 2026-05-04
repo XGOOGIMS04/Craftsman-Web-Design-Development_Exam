@@ -205,3 +205,20 @@ display: flex
 }
 ```
 - footer 레이아웃 에서는 logo 영역이 200px에 맞춰줘있다. 그래서 footer css를 위 처럼 해보았다
+
+### layout F-1
+``` css
+#slider .link {
+    width: 1340px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(-50%);
+}
+```
+- .banner는 slider 위에 있다. 그래서 position: absolute;를 사용하여 위치를 지정해준다
+- bottom: 0;, right: 50%; 이면 .banner의 왼쪽이 slider의 50%가 되는 위치에서부터 시작한다
+- transform: translateX(-50%); 에서 translateX(-50%)는 x축으로 -50% 만큼 이동한것이다. 
+- 위의 설명들을 조합하면 banner가 slider의 bottom 중앙에 위치하게 된다
