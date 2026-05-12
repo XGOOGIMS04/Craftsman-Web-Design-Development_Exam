@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>웹디기 메뉴 M-1</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                list-style: none;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+            #wrap {
+                width: 1200px;
+                margin: 0 auto;
+            }
+            #header {
+                width: 100%;
+                display: flex;
+            }
+            #header .logo {
+                width: 20%;
+                height: 100px;
+                background-color: #efefef;
+            }
+            #header .nav {
+                width: 80%;
+                background-color: #e3e3e3;
+            }
+            #slider {
+                width: 100%;
+                height: 300px;
+                background-color: #d9d9d9;
+            }
+            #contents {
+                width: 100%;
+                display: flex;
+            }
+            #contents .content1 {
+                width: 33.3333%;
+                height: 200px;
+                background-color: #d1d1d1;
+            }
+            #contents .content2 {
+                width: 33.3333%;
+                height: 200px;
+                background-color: #c7c7c7;
+            }
+            #contents .content3 {
+                width: 33.3333%;
+                height: 200px;
+                background-color: #bcbcbc;
+            }
+            #footer {
+                width: 100%;
+                display: flex;
+            }
+            #footer .footer1 {
+                width: 20%;
+                height: 100px;
+                background-color: #b1b1b1;
+            }
+            #footer .footer2 {
+                width: 60%;
+                height: 100px;
+                background-color: #a3a3a3;
+            }
+            #footer .footer3 {
+                width: 20%;
+                height: 100px;
+                background-color: #9d9d9d;
+            }
+
+            /* nav */
+            .nav > ul {
+                display: flex; /*오른쪽으로 정렬*/
+                justify-content: right; /*오른쪽 이동*/
+                margin-top: 30px;
+            }
+            .nav > ul > li {
+                position: relative;
+            }
+            .nav > ul > li > a {
+                display: inline-block;
+                padding: 10px 50px; /*위아래 10, 양쪽 50, 인라인이라서 padding 값이 안먹힘. 그래서 인라인 블록을 줌*/
+                background-color: #b0b0b0;
+            }
+            .nav > ul > li > a:hover {
+                background-color: #696969;
+            }
+            .nav > ul > li > ul {
+                position: absolute;
+                left: 0;
+                top: 39px;
+                text-align: center;
+                width: 100%;
+                /* display: none; */
+            }
+            .nav > ul > li > ul > li > a {
+                display: inline-block;
+                padding: 10px;
+                background-color: #c1c1c1;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .nav > ul > li > ul > li > a:hover {
+                background-color: #8f8f8f;
+            }
+
+            /* js css */
+            nav > ul > li > ul {
+                display: block;
+                height: 0;
+                overflow: hidden;
+                transition: all 600ms; /*서브메뉴가 서서히 나옴*/
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="header">
+                <div class="logo"></div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#">메뉴1</a>
+                            <ul class="submenu">
+                                <li><a href="#">서브메뉴1-1</a></li>
+                                <li><a href="#">서브메뉴1-2</a></li>
+                                <li><a href="#">서브메뉴1-3</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">메뉴2</a>
+                            <ul class="submenu">
+                                <li><a href="#">서브메뉴2-1</a></li>
+                                <li><a href="#">서브메뉴2-2</a></li>
+                                <li><a href="#">서브메뉴2-3</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">메뉴3</a>
+                            <ul class="submenu">
+                                <li><a href="#">서브메뉴3-1</a></li>
+                                <li><a href="#">서브메뉴3-2</a></li>
+                                <li><a href="#">서브메뉴3-3</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">메뉴4</a>
+                            <ul class="submenu">
+                                <li><a href="#">서브메뉴4-1</a></li>
+                                <li><a href="#">서브메뉴4-2</a></li>
+                                <li><a href="#">서브메뉴4-3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- //header -->
+
+            <div id="slider"></div>
+            <!-- //slider -->
+
+            <div id="contents">
+                <div class="content1"></div>
+                <div class="content2"></div>
+                <div class="content3"></div>
+            </div>
+            <!-- //contents -->
+
+            <div id="footer">
+                <div class="footer1"></div>
+                <div class="footer2"></div>
+                <div class="footer3"></div>
+            </div>
+            <!-- //footer -->
+        </div>
+        <!-- //wrap -->
+    </body>
+    <!-- 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".nav > ul > li").mouseover(function(){
+                $(this).find('.submenu').stop().slideDown()
+            })
+            $('.nav > ul > li').mouseout(function(){
+                $(this).find('.submenu').stop().slideUp()
+            })
+        })
+    </script>
+    -->
+    <script>
+        window.onload = function(){
+            let navList = document.querySelectorAll('.nav > ul > li') // 메뉴 4개를 다 선택함. 이때 a태그가 아닌 li 태그로 선택을 해야함
+
+            navList.forEach(function(navItem){ // 4개를 반복적으로 처리함
+                navItem.addEventListener("mouseover", function(){ // 마우스 오버했을때 콜백 함수를 실행시켜줌 
+                    this.querySelector(".submenu").style.height = "155px"
+                }) 
+            })
+            navList.forEach(function(navItem){
+                navItem.addEventListener("mouseout", function(){
+                    this.querySelector(".submenu").style.height = "0"
+                })
+            })
+        }
+    </script>
+</html>
