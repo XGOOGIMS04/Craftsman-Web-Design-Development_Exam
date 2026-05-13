@@ -1,3 +1,8 @@
+## M-1 M-2 차이
+M-1 -> 메뉴 하나에 마우스를 올리면 그 메뉴의 서브메뉴만 열림
+M-2 -> 메누 하나에 마우스를 올리면 서브메뉴 4개가 전부 열림
+
+
 ### M-1
 
 ```css
@@ -185,3 +190,73 @@ this.querySelector(".submenu").style.height = "155px"
 6. 메뉴1 li 안의 .submenu를 찾아 height = 155px
 7. CSS transition이 0px → 155px를 600ms에 걸쳐 서서히 열어줌
 8. 마우스 나가면 mouseout → height = 0으로 되돌림
+
+
+### M-2
+``` css
+.nav > ul {
+    display: flex;
+}
+```
+메뉴 정렬할떄 .nav > ul > li 가 아닌 .nav > ul > li에게 주는 이유?
+- display: flex 는 그 요소의 자식들을 가로로 정렬해줌. 즉, flex를 준 요소가 아니라 그 안의 자식들이 영향을 받음
+- 그래서 정렬하고 싶은 요소의 부모에게 줘야함. html때 적용한거 기억하기
+
+``` javascript
+<script>
+$(function(){
+    $('.nav > ul > li').mouseover(function(){
+        $('.nav > ul > li > ul').stop().slideDown(200)
+    })
+    $('.nav > ul > li').mouseout(function(){
+        $('.nav > ul > li > ul').stop().slideUp(200) 
+    })
+})
+</script>
+```
+- 제이쿼리 전체 코드
+- $('.nav > ul > li > ul') 에서 M-1 과는 다르게 this가 아닌 이유?
+    마우스를 오버한 애가 아니라 서브메뉴 ul 4개를 다 선택해야 하기 때문
+
+``` javascript 
+<script>
+    window.onload = function(){
+        let navList = document.querySelector('.nav > ul')
+
+        navList.addEventListener("mouseover", function(){
+            navList.querySelectorAll('.submenu').forEach(sub => {
+                sub.style.height = '155px'
+            })
+        })
+        navList.addEventListener("mouseout", function(){
+            navList.querySelectorAll('.submenu').forEach(sub => {
+                sub.style.height = '0'
+            })
+        })
+    }
+</script>
+```
+- js 전체 코드
+
+``` javascript
+let navList = document.querySelector('.nav > ul')
+```
+- querySelector 로 ul 한개만 선택함. 그래서 li 각각이 아닌, ul 전체에 이벤트를 검
+
+``` javascript 
+navList.addEventListener("mouseover", function(){
+    navList.querySelectorAll('.submenu').forEach(sub => {
+        sub.style.height = '155px'
+    })
+})
+```
+- ul 전체에 mouseover를 검
+- querySelectorAll로 서브메뉴 4개를 전부 선택하고, forEach로 4개 전부 height를 155px로 바꿈
+
+#### M-2 최종정리
+1. ul 1개를 navList에 저장
+2. navList 전체에 mouseover/mouseout 이벤트 등록
+3. 메뉴 어디든 마우스 올림
+4. submenu 4개를 전부 찾아서 height = 155px
+5. 마우스 나가면 4개 전부 height = 0
+- 추가로 궁금했던 점 : forEach에서 높이 각각 155px를 줬는데, 왜 각각 하나씩 안내려가고, 한번에 내려가는것인? => 4개를 순서대로 처리하는데, 그 속도가 사람눈에 보이지 않을 만큼 빠름. 그래서 동시에 바뀌는것처럼 보임
