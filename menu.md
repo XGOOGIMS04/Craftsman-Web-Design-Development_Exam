@@ -3,7 +3,7 @@ M-1 -> 메뉴 하나에 마우스를 올리면 그 메뉴의 서브메뉴만 열
 M-2 -> 메누 하나에 마우스를 올리면 서브메뉴 4개가 전부 열림
 
 
-### M-1
+### << M-1 >>
 
 ```css
 /* nav */
@@ -192,7 +192,7 @@ this.querySelector(".submenu").style.height = "155px"
 8. 마우스 나가면 mouseout → height = 0으로 되돌림
 
 
-### M-2
+### << M-2 >>
 ``` css
 .nav > ul {
     display: flex;
@@ -260,3 +260,129 @@ navList.addEventListener("mouseover", function(){
 4. submenu 4개를 전부 찾아서 height = 155px
 5. 마우스 나가면 4개 전부 height = 0
 - 추가로 궁금했던 점 : forEach에서 높이 각각 155px를 줬는데, 왜 각각 하나씩 안내려가고, 한번에 내려가는것인? => 4개를 순서대로 처리하는데, 그 속도가 사람눈에 보이지 않을 만큼 빠름. 그래서 동시에 바뀌는것처럼 보임
+
+
+### << M-3 >>
+M-3 은 전체 서브메뉴 색상이 들어가야함
+전체메뉴를 가상요소를 이용하여 처리함
+
+``` css
+#header {
+    position: relative; /*메뉴 기준점 추가해줌*/
+}
+#header::after { /* 가상요소 */
+    content: ''; /* 필수! 없으면 가상요소 안생김 */
+    width: 100%;
+    height: 0; /*스크립트로 처리해줄것*/
+    background-color: #808080;
+    position: absolute;
+    z-index: 1; /* .nav보다 우선순위를 낮게 설명함 */
+    left: 0;
+    top: 100px; /* header 아래에 위치 */
+    transition: all 400ms;
+}
+#header.on::after {
+    height: 155px; /* header가 0이였다가 class on이 생겼을때 155로 바뀜 */
+} 
+```
+- ::after 는 html에 태그를 추가하지 않고 css 만으로 요소를 하나 만드는것
+- 메뉴의 배경을 가상요소로 만들어줌
+
+``` css
+/* nav */
+.nav {
+    position: relative; /* z-index는 position이랑 같이 써야함 */
+    z-index: 1000; /*겹쳤을때 우선순위 정해줌*/
+}
+.nav > ul {
+    display: flex;
+    justify-content: right;
+    margin-top: 61px; /*밑 고정*/
+}
+.nav > ul > li {
+    position: relative;
+}
+.nav > ul > li > a {
+    display: inline-block;
+    padding: 10px 50px;
+    background-color: #b0b0b0;
+}
+.nav > ul > li > a:hover {
+    background-color: #696969;
+}
+.nav > ul > li > ul {
+    text-align: center;
+    position: absolute;
+    top: 39px; /*이게 없으면 서브메뉴가 a태그 위에 겹침*/
+    left: 0;
+    width: 100%; /* 박스사이징 하고 적용이 안된 너비 처리 */
+    display: none;
+}
+.nav > ul > li > ul > li {}
+.nav > ul > li > ul > li > a {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.nav > ul > li > ul > li > a:hover {
+    background-color: #8f8f8f;
+}
+```
+- nav 부분 css
+- z-index 를 사용하여, 가상 박스와 서브메뉴의 우선순위를 정해줌. 이때 z-index는 position이랑 같이 사용해야함
+
+``` javascript
+<script>
+$(function(){
+    $('.nav > ul > li').mouseover(function(){
+        $('.nav > ul > li > ul').stop().slideDown(500)
+        $('#header').addClass('on') /* header 에 클래스 on을 붙이면 css에 만든 가상박스 나옴 */
+    })
+    $('.nav > ul > li').mouseout(function(){
+        $('.nav > ul > li > ul').stop().slideUp(100)
+        $('#header').removeClass('on') /* header 에 클래스 on을 붙이면 css에 만든 가상박스 삭제됨 */
+    })
+})
+</script>
+```
+- 제이쿼리 전체 코드
+
+``` javascript
+<script>
+window.onload = function(){
+    let navList = document.querySelector('.nav > ul')
+
+    navList.addEventListener("mouseover", () => { // 화살표 함수 사용
+        navList.querySelectorAll('.submenu').forEach(sub => {
+            sub.style.height = '156px'
+        })
+        document.getElementById('header').classList.add('on') // header에 class = 'on'을 붙여라?
+    })
+    navList.addEventListener("mouseout", () => { // 화살표 함수 사용
+        navList.querySelectorAll('.submenu').forEach(sub => {
+            sub.style.height = '0px'
+        })
+        document.getElementById('header').classList.remove('on')
+    })
+}
+</script>
+```
+- js 전체 코드
+
+``` javascript
+document.getElementById('header').classList.add('on')
+document.getElementById('header').classList.remove('on')
+```
+- M-3 에서 추가된 부분
+- classList : 요소의 클래스를 추가/제거/확인할 수 있는 기능
+- classList.add('on')은 <div id="header" class="on"> 으로 바뀌며, css에서는 #header의 높이가 156px 로 바뀌며 회색 배경이 펼쳐짐
+
+#### M-3 최종 정리
+마우스 올림
+├── 서브메뉴 4개 height = 156px (서브메뉴 열림)
+└── header에 class="on" 추가 → 회색 배경 펼쳐짐
+
+마우스 나감
+├── 서브메뉴 4개 height = 0 (서브메뉴 닫힘)
+└── header에 class="on" 제거 → 회색 배경 사라짐
