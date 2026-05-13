@@ -386,3 +386,64 @@ document.getElementById('header').classList.remove('on')
 마우스 나감
 ├── 서브메뉴 4개 height = 0 (서브메뉴 닫힘)
 └── header에 class="on" 제거 → 회색 배경 사라짐
+
+
+### M-4
+``` css
+/* nav */
+.nav > ul > li > a {
+    display: block;
+    padding: 10px;
+    background-color: #ccc;
+    text-align: center;
+}
+.nav > ul > li > a:hover {
+    background-color: #9c9c9c;
+}
+.nav > ul > li > ul {
+    display: none;
+}
+.nav > ul > li > ul > li > a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+.nav > ul > li > ul > li > a:hover {
+    background-color: #c0c0c0;
+}
+```
+세로 메뉴이기 때문에 inline-block 이 아닌 block 로 해줌
+
+``` javascript 
+<script>
+$(function(){
+    $('.nav > ul > li').mouseover(function(){
+        $(this).find('.submenu').stop().slideDown()
+    })
+    $('.nav > ul > li').mouseout(function(){
+        $(this).find('.submenu').stop().slideUp()
+    })
+})
+</script>
+```
+- 제이쿼리 전체 코드
+
+``` javascript
+<script>
+window.onload = function(){
+    let navList = document.querySelectorAll('.nav > ul > li')
+
+    navList.forEach(function(navItem){
+        navItem.addEventListener("mouseover", function(){
+            this.querySelector('.submenu').style.height = '155px'
+        })
+    })
+    navList.forEach(function(navItem){
+        navItem.addEventListener("mouseout", function(){
+            this.querySelector('.submenu').style.height = '0px'
+        })
+    })
+}
+</script>
+```
+- js 전체 코드
