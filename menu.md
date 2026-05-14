@@ -520,3 +520,139 @@ window.onload = function(){
 </script>
 ```
 - js 전체 코드
+
+
+### M-6
+``` css
+/* nav */
+.nav {
+    z-index: 1000;
+    position: relative;
+}
+.nav > ul > li {
+    position: relative;
+}
+.nav > ul > li > a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    background-color: #ccc;
+}
+.nav > ul > li > a:hover {
+    background-color: #aeaeae;
+}
+.nav > ul > li > ul {
+    /* display: none; */
+    position: absolute; /*li가 아닌 왜 ul에다가 주나*/
+    right: -500px;
+    top: 0;
+    width: 500px;
+}
+.nav > ul > li > ul > li {
+    display: inline; /*왜줌*/
+}
+.nav > ul > li > ul > li > a {
+    display: inline-block; /* 가로정렬 */
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+}
+.nav > ul > li > ul > li > a:hover {
+    background-color: #a2a2a2;
+}
+```
+- 전체적 css 코드
+
+``` css
+.nav > ul > li > ul {
+    position: absolute;
+    right: -500px;  /* li 오른쪽 바깥으로 500px 이동 */
+    top: 0;
+    width: 500px;
+}
+```
+- 사이드바 메뉴라서 서브메뉴가 오른쪽으로 펼쳐져야함
+- 서브메뉴 ul 자체를 오른쪽으로 빼둠
+- 서브메뉴 전체를 오른쪽으로 이동하려고 하기 때문에 묶음 단위인 ul을 옮기는것
+
+``` css
+.nav > ul > li > ul > li {
+    display: inline;  /* 블록 → 인라인으로 바꿔서 가로로 붙음 */
+}
+.nav > ul > li > ul > li > a {
+    display: inline-block;  /* 너비/패딩 적용되게 */
+    width: 100px;
+}
+```
+- li는 블록 요소라서 세로로 쌓임. 그래서 inline을 줌으로써 가로로 붙게 만듬
+- a 태그에 인라인 블록을 줌으로써, 너비가 100px가 먹히도록 함
+
+``` css
+#main::after {
+    content: '';
+    width: 0%;          /* 평소엔 너비 0 */
+    height: 193px;
+    background-color: #b0b0b0;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    transition: all 300ms;
+}
+#main.on::after {
+    width: 100%;        /* on 클래스 붙으면 가로로 펼쳐짐 */
+}
+```
+- 가로로 배경을 펼침
+
+``` javascript
+<script>
+$(function(){
+    $('.nav > ul > li').mouseover(function(){
+        $('.nav > ul > li > ul').stop().fadeIn() // 서서히 나타남
+        $('#main').addClass('on') // #main::after 가상요소 배경인 main 클래스 추가
+    })
+    $('.nav > ul > li').mouseout(function(){
+        $('.nav > ul > li > ul').stop().fadeOut() // 서서히 사라짐
+        $('#main').removeClass('on')
+    })
+})
+</script>
+```
+- fadeIn / fadeOut 는 서서히 나타나고, 서서히 사라짐
+- addClass / removeClass 는 클래스를 추가하거나 제거
+
+``` javascript
+<script>
+window.onload = function(){
+    let navList = document.querySelector('.nav > ul')
+
+    navList.addEventListener('mouseover', function(){
+        navList.querySelectorAll('.submenu').forEach(sub => {
+            sub.style.display = 'block' // 서서히 나타나고 사라지는것 처리
+        })
+        document.getElementById('main').classList.add('on')
+    })
+    navList.addEventListener('mouseout', function(){
+        navList.querySelectorAll('.submenu').forEach(sub => {
+            sub.style.display = 'none' // 서서히 나타나고 사라지는것 처리
+        })
+        document.getElementById('main').classList.remove('on')
+    })
+}
+</script>
+```
+- js 전체 코드
+
+``` css
+.nav > ul > li > ul {
+    display: none;
+}
+```
+``` javascript
+sub.style.display = 'block'  /* 보여줌 */
+sub.style.display = 'none'   /* 다시 숨김 */
+```
+- M-3과 비슷하지만 서브메뉴를 숨겨놨음. js 로 block 으로 될때 보임height 대신 display: block 으로 바꿔서 나타나게함
+- 헷갈리지 않게 조심 : 서브메뉴랑 배경이 따로 움직임
+    서브메뉴는 애니메이션 없이 나타났다가 사라지는것
+    배경은 transition을 줌으로써 왼쪽으로 가상배경이 스르르 펼쳐짐. 부드러움
