@@ -447,3 +447,76 @@ window.onload = function(){
 </script>
 ```
 - js 전체 코드
+
+
+### M-5 
+``` css
+/* nav */
+.nav {}
+.nav > ul {}
+.nav > ul > li {
+    position: relative;
+}
+.nav > ul > li > a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    background-color: #ccc;
+}
+.nav > ul > li > a:hover {
+    background-color: #dbdbdb;
+}
+.nav > ul > li > ul {
+    position: absolute; /* 서브메뉴 오른쪽으로 뺴주기 */
+    right: -200px;
+    top: 0;
+    width: 200px;
+    background-color: #6d6d6d;
+    display: none;
+}
+.nav > ul > li > ul > li {}
+.nav > ul > li > ul > li > a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+.nav > ul > li > ul > li > a:hover {
+    background-color: #c0c0c0;
+}
+```
+- nav css 코드
+- 서브메뉴가 오른쪽에 가야 하므로 position 사용
+
+``` javascript
+<script>
+$(function(){
+    $('.nav > ul > li').mouseover(function(){
+        $(this).find('.submenu').stop().slideDown()
+    })
+    $('.nav > ul > li').mouseout(function(){
+        $(this).find('.submenu').stop().slideUp()
+    })
+})
+</script>
+```
+- 제이쿼리 코드
+
+``` javascript 
+<script>
+window.onload = function(){
+    let navList = document.querySelectorAll('.nav > ul > li')
+
+    navList.forEach(function(navItem){
+        navItem.addEventListener('mouseover', function(){
+            this.querySelector('.submenu').style.height = '155px'
+        })
+    })
+    navList.forEach(function(navItem){
+        navItem.addEventListener('mouseout', function(){
+            this.querySelector('.submenu').style.height = '0px'
+        })
+    })
+}
+</script>
+```
+- js 전체 코드
