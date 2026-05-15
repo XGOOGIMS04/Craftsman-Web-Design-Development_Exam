@@ -735,3 +735,37 @@ $(function(){
 </script>
 ```
 - 제이쿼리 전체 코드
+
+``` javascript 
+<script>
+window.onload = function () {
+    let navList = document.querySelector(".nav > ul");
+
+    navList.addEventListener("mouseover", () => {
+        navList.querySelectorAll(".submenu").forEach((sub) => {
+            sub.style.height = "155px";
+        });
+        document.getElementById("slider").classList.add("on");
+    });
+
+    navList.addEventListener("mouseout", () => {
+        navList.querySelectorAll(".submenu").forEach((sub) => {
+            sub.style.height = "0px";
+        });
+        document.getElementById("slider").classList.remove("on");
+    });
+};
+</script>
+```
+- js 전체 코드
+
+``` css
+/* js css */
+.nav > ul > li > ul {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    transition: all 400ms;
+}
+```
+- js css 코드
