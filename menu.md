@@ -656,3 +656,82 @@ sub.style.display = 'none'   /* 다시 숨김 */
 - 헷갈리지 않게 조심 : 서브메뉴랑 배경이 따로 움직임
     서브메뉴는 애니메이션 없이 나타났다가 사라지는것
     배경은 transition을 줌으로써 왼쪽으로 가상배경이 스르르 펼쳐짐. 부드러움
+
+
+### M-7
+``` css
+/* nav */
+.nav {
+    position: relative;
+    z-index: 1000; /* 서브메뉴 작업할때 slider에 가려져서 안보여서 */
+}
+.nav > ul {
+    display: flex;
+    justify-content: right;
+    margin-top: 61px;
+}
+.nav > ul > li {
+    position: relative; /* 서브메뉴 기준점 */
+}
+.nav > ul > li > a {
+    display: inline-block;
+    padding: 10px 50px;
+    background-color: #b0b0b0;
+}
+.nav > ul > li > a:hover {
+    background-color: #696969;
+}
+.nav > ul > li > ul {
+    text-align: center;
+    position: absolute; /* 서브메뉴가 slider 위에 올라오도록 */
+    left: 0;
+    top: 40px;
+    width: 100%;
+    /* display: none; */
+}
+.nav > ul > li > ul > li > a {
+    display: inline-block;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.nav > ul > li > ul > li > a:hover {
+    background-color: #8f8f8f;
+}
+```
+- nav css 코드
+
+``` css
+#slider::after {
+    content: '';
+    width: 100%;
+    height: 0px;
+    background-color: #b0b0b0;
+    position: absolute; 
+    left: 0;
+    top: 0; 
+    z-index: 1; /* 메뉴보다 아래에 나와야함 */
+    transition: all 300ms;
+}
+#slider.on::after {
+    height: 193px; /* 위에서 아래로 내려오는 것이므로, 높이값 조절 */
+}
+```
+- 가상배경 설정
+- 주의할 점은 가상 배경이 M-6처럼 왼쪽에서 오른쪽이 아닌, 위에서 아래로 내려오므로 height 값을 변경해줘야함
+
+``` javascript 
+<script>
+$(function(){
+    $('.nav > ul > li').mouseover(function(){
+        $('.nav > ul > li > ul').stop().fadeIn(500)
+        $('#slider').addClass('on')
+    })
+    $('.nav > ul > li').mouseout(function(){
+        $('.nav > ul > li > ul').stop().fadeOut(100)
+        $('#slider').removeClass('on')
+    })
+})
+</script>
+```
+- 제이쿼리 전체 코드
