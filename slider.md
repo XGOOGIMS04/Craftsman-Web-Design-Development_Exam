@@ -21,6 +21,8 @@
 ```
 - 슬라이드 html
 
+---
+
 ``` css
 .sliderWrap {}
 .sliderWrap .slider {}
