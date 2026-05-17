@@ -227,3 +227,211 @@ slider[0]            // 첫번째 슬라이드
 slider.forEach(img => img.style.transition = 'all 1s')
 ```
 - transition을 setInterval 안에 넣은 이유 : 처음부터 transition을 주면 첫번째 이미지가 나타날때도 애니메이션이 생겨버림. 그래서 setInterval 안에 넣어서 3초후에 슬라이드 전환이 시작될떄부터 애니메이션이 적용되게 한 것
+
+---
+
+### S-2 
+가로로 움직임
+
+``` html
+<article id="slider">
+    <div class="sliderWrap">
+        <div class="slider s1">
+            <img src="./이미지/slider01.jpg" alt="이미지 설명1">
+            <span>이미지1</span>
+        </div>
+        <div class="slider s2">
+            <img src="./이미지/slider02.jpg" alt="이미지 설명2">
+            <span>이미지2</span>
+        </div>
+        <div class="slider s3">
+            <img src="./이미지/slider03.jpg" alt="이미지 설명3">
+            <span>이미지3</span>
+        </div>
+    </div>
+</article>
+```
+- 슬라이드 html 코드
+
+---
+
+``` css
+#slider {
+    overflow: hidden; /* slider 영역 밖에 있는 이미지 2, 3 은 보이지 않게 처리 */
+}
+.sliderWrap {
+    display: flex; /* 이미지 가로정렬 */
+}
+.sliderWrap  .slider {
+    position: relative;
+}
+.sliderWrap  .slider  img {
+    vertical-align: top; /* s-1 과는 다르게 가로 정렬이라서 여백이 생기지 않지만 일단 넣어줌 */
+}
+.sliderWrap  .slider  span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+```
+- css 전체 코드
+- 이미지가 옆으로 이동하기 때문에 display: flex; 로 가로 정렬을 해준다
+- overflow: hidden; 을 줌으로써, slider 영역 밖에 있는 이미지 2, 3 보이지 않게 처리한다(존재하는데 안보이게 처리)
+
+---
+
+``` javascript 
+<script>
+    $(function(){
+        let currentIndex = 0; // 현재 이미지
+
+        $('.sliderWrap').append($('.slider').first().clone(true)); // 첫번째 이미지를 복사, 마지막에 추가. 이렇게 하면 안끊긴다고 함
+
+        setInterval(function(){ // 3초에 한번씩 실행
+            currentIndex++; // 현재 이미지를 1씩 증가
+            
+            $('.sliderWrap').animate({marginLeft: -currentIndex * 100 + "%"}, 600)
+
+            if(currentIndex == 3){ // 이미지가 마지막일때
+                setTimeout(function(){
+                    $('.sliderWrap').animate({marginLeft:0}, 0); // 애니메이션을 정지
+                    currentIndex = 0; // 현재 이미지를 초기화
+                }, 700);
+            }
+        }, 3000)
+    })
+</script>
+```
+- 제이쿼리 전체코드
+
+---
+
+``` javascript
+<script>
+    $(function(){
+        let currentIndex = 0; // 현재 이미지
+
+        // 첫번째 슬라이드를 선택해서, 복사한다음 맨 끝에 추가
+        $('.sliderWrap').append($('.slider').first().clone(true));
+
+        setInterval(function(){ // 3초에 한번씩 실행
+            // 3초마다 현재 이미지를 1씩 증가시킴
+            currentIndex++; 
+            
+            // .sliderWrap 을 왼쪽으로 민다.
+            $('.sliderWrap').animate({marginLeft: -currentIndex * 100 + "%"}, 600)
+
+            // currentIndex가 3이 되면(마지막 이미지일때) 실행됨
+            if(currentIndex == 3){
+                setTimeout(function(){ // 700ms 후에 한번만 실행되는 함수
+                    // sliderWrap을 순간이동으로 처음 위치로 돌림(0초만에)
+                    $('.sliderWrap').animate({marginLeft:0}, 0); // 애니메이션을 정지
+
+                    // 번호도 초기화
+                    currentIndex = 0;
+                }, 700);
+            }
+        }, 3000)
+    })
+</script>
+```
+- 제이쿼리 한줄 설명
+- s3 에서 s1로 반복할때 끊기는 느낌이 있어서, 맨 끝에 s1 복사복을 넣어서 자연스럽게 전환되도록 해줌
+- 이미지1 -> 이미지2 -> 이미지3 -> 이미지1 로 되는 순간 다시 리셋해버릴꺼임
+- 반복순서 : 1 -> 2 -> 3 -> 복사1 -> (몰래 1로 이동) -> 2 -> 3 ....
+    복사 1에서 진짜 1로 순간이동 하는게 0초 라서 눈에 안보임
+- 타임라인 : s1 → s2 → s3 → 복사1 (0.7초 동안 보임)
+                  ↓
+           사람 모르게 순간이동으로 진짜 s1으로 리셋
+                  ↓
+              s2 → s3 → 복사1 → 무한반복
+
+---
+``` javascript
+<script>
+    window.onload = function(){
+        let currentIndex = 0; // 현재 이미지
+        const sliderWrap = document.querySelector('.sliderWrap'); // 전체 이미지
+        const slider = document.querySelectorAll('.slider'); // 각각의 이미지
+        const sliderClone = sliderWrap.firstElementChild.cloneNode(true); // 첫번째 이미지 저장
+        sliderWrap.appendChild(sliderClone); // 복사한 이미지를 마지막에 추가
+        
+        setInterval(() => {
+            currentIndex++; //현재 이미지를 1씩 증가시켜줌
+
+            sliderWrap.style.marginLeft = -currentIndex * 100 + "%"; // 이미지 이동
+            sliderWrap.style.transition = "all 0.6s"; // 이미지 애니메이션 설정
+
+            if(currentIndex == 3){
+                setTimeout(() => {
+                    sliderWrap.style.transition = '0s'; // 애니메이션 정지
+                    sliderWrap.style.marginLeft = '0'; // 애니메이션 위치 초기화
+                    currentIndex = 0; // 현재 이미지 초기화
+                }, 700);
+            }
+        }, 3000);
+    }
+</script>
+```
+- js 전체코드
+
+---
+
+``` javascript
+<script>
+    window.onload = function(){
+        let currentIndex = 0; // 현재 이미지
+
+        // .sliderWrap 요소 1개를 선택하여, 선택한 요소를 sliderWrap 변수에 저장
+        const sliderWrap = document.querySelector('.sliderWrap');
+
+        // .slider 요소 3개를 전부 선택하고, 선택한 3개를 slider 변수에 저장(배열 형태로 저장)
+        const slider = document.querySelectorAll('.slider');
+
+        // sliderWrap 의 첫번째 자식요소(s1)를 선택하고 복사하여 sliderClone 변수에 저장함
+        const sliderClone = sliderWrap.firstElementChild.cloneNode(true); 
+
+        // 복사해준 s1을 sliderWrap 의 맨 끝에 추가
+        sliderWrap.appendChild(sliderClone); 
+
+        setInterval(() => { // 3초마다 안의 코드를 반복 실행
+            // //현재 이미지를 1씩 증가시켜줌
+            currentIndex++; 
+
+            // sliderWrap 을 왼쪽으로 밀어서 다음 슬라이드가 보이게 함
+            sliderWrap.style.marginLeft = -currentIndex * 100 + "%";
+
+            // marginLeft가 바뀔때 0.6초 동안 부드럽게 이동하게 해줌
+            sliderWrap.style.transition = "all 0.6s";
+
+            if(currentIndex == 3){ // currentIndex가 3일때 아래 코드 실행
+
+                setTimeout(() => { // 0.7초후 안의 코드를 한번만 실행함
+                    // transition을 0으로 바꿔서 애니메이션을 끊어줌
+                    sliderWrap.style.transition = '0s';
+
+                    // sliderWrap 을 처음 위치로 순간이동 시킴.
+                    sliderWrap.style.marginLeft = '0';
+
+                    // 슬라이드 번호 0으로 초기화함
+                    currentIndex = 0;
+                }, 700);
+            }
+        }, 3000);
+    }
+</script>
+```
+- js 한줄 설명 코드
+-  전체 흐름
+    3초마다
+    ├── currentIndex 1 증가
+    ├── sliderWrap 왼쪽으로 이동 (0.6초 동안 부드럽게)
+    └── currentIndex가 3이면 (복사1이 보일 때)
+        └── 0.7초 후
+            ├── transition 끔 (순간이동 준비)
+            ├── sliderWrap 처음으로 순간이동 (눈에 안보임)
+            └── currentIndex = 0 으로 초기화
