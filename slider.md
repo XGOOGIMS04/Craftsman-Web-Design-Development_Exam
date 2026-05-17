@@ -435,3 +435,116 @@ slider.forEach(img => img.style.transition = 'all 1s')
             ├── transition 끔 (순간이동 준비)
             ├── sliderWrap 처음으로 순간이동 (눈에 안보임)
             └── currentIndex = 0 으로 초기화
+
+
+### S-3
+위에서 아래로 움직임
+
+``` html
+<article id="slider">
+    <div class="sliderWrap">
+        <div class="slide s1">
+            <img src="./이미지/slider01.jpg" alt="이미지 설명1">
+            <span>이미지1</span>
+        </div>
+        <div class="slide s2">
+            <img src="./이미지/slider02.jpg" alt="이미지 설명2">
+            <span>이미지2</span>
+        </div>
+        <div class="slide s3">
+            <img src="./이미지/slider03.jpg" alt="이미지 설명3">
+            <span>이미지3</span>
+        </div>
+    </div>
+</article>
+```
+- S-3 html 전체 코드
+
+---
+
+``` css
+#slider {
+    overflow: hidden;
+}
+.sliderWrap .slider {
+    position: relative;
+}
+.sliderWrap .slider img {
+    vertical-align: top;
+}
+.sliderWrap .slider span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+```
+- S-3 css 전체 코드
+
+---
+
+``` javascript 
+<script>
+    $(function(){
+        let currentIndex = 0;
+        $('.sliderWrap').append($('.slider').first().clone(true)); // 첫번째 이미지를 복사해서 마지막에 추가
+
+        setInterval(function(){ // 3초에 한번씩 실행
+            currentIndex++; // 현재 이미지를 1씩 증가
+
+            $('.sliderWrap').animate({marginTop: -currentIndex * 300 + "px"}, 600); // 이미지 애니메이션
+
+            if(currentIndex == 3){ // 마지막 이미지일때
+                setTimeout(function(){
+                    $('.sliderWrap').animate({marginTop: 0}, 0); // 애니메이션 초기화
+                    currentIndex = 0; // 현재 이미지를 초기화
+                }, 700)
+            }
+        }, 3000)
+    })
+</script>
+```
+- 제이쿼리 전체 코드
+- S-2 와 다른점 >> 
+    - S-2 (좌우 슬라이드)
+    - marginLeft: -currentIndex * 100 + "%"
+    - → 이미지 너비가 100%니까 100%씩 이동
+
+    - S-3 (위아래 슬라이드)
+    - marginTop: -currentIndex * 300 + "px"
+    - → 이미지 높이가 300px이니까 300px씩 이동
+
+---
+
+``` javascript
+<script>
+    window.onload = function(){
+        let currentIndex = 0; // 현재 이미지 설정
+        const sliderWrap = document.querySelector('.sliderWrap'); // 전체 이미지
+        const slider = document.querySelectorAll('.slider'); // 각각의 이미지
+        const sliderClone = sliderWrap.firstElementChild.cloneNode(true); // 첫번째 이미지를 저장
+
+        sliderWrap.appendChild(sliderClone);
+
+        setInterval(() => {
+            currentIndex++; 
+
+            sliderWrap.style.marginTop = -currentIndex * 300 + "px";
+            sliderWrap.style.transition = "all 0.6s";
+
+            if (currentIndex == slider.length){ // 3 대신 length 를 넣어줌으로써 이미지가 몇개든 상관없이 코드 재사용성 가능
+                setTimeout(() => {
+                    sliderWrap.style.transition = "0s";
+                    sliderWrap.style.marginTop = "0";
+                    currentIndex = 0;
+                }, 700);
+            }
+        }, 3000);
+    }
+</script>
+```
+- js 전체 코드(S-2랑 거의 비슷함. 다른점은 왼쪽으로 이동이냐 위쪽으로 이동이냐)
+- currentIndex == slider.length 로써 이미지가 몇개인지에 따라 상관없이 코드 재사용 가능
