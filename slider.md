@@ -548,3 +548,135 @@ slider.forEach(img => img.style.transition = 'all 1s')
 ```
 - js 전체 코드(S-2랑 거의 비슷함. 다른점은 왼쪽으로 이동이냐 위쪽으로 이동이냐)
 - currentIndex == slider.length 로써 이미지가 몇개인지에 따라 상관없이 코드 재사용 가능
+
+
+### S-4
+제자리 반응형
+- 이미지 태그가 없음. 백그라운드로 넣어주기 때문에
+``` html
+<article id="slider">
+    <div class="sliderWrap">
+        <div class="slider s1">
+            <span>이미지1</span>
+        </div>
+        <div class="slider s2">
+            <span>이미지2</span>
+        </div>
+        <div class="slider s3">
+            <span>이미지3</span>
+        </div>
+    </div>
+</article>
+```
+- S-4 html 전체 코드
+
+---
+
+```css 
+.sliderWrap {
+    position: relative;
+    height: 100%; /* 배경이미지로써 크기가 자동으로 안잡히기 때문에 높이 적어줌, 너비는 자동 */
+}
+.sliderWrap > div {
+    display: none;
+}
+.sliderWrap > div:first-child {
+    display: block;
+}
+.sliderWrap .slider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%; /* 배경이미지로써 크기가 자동으로 안잡히기 때문에 너비 높이 적어줌 */
+    height: 100%; /* 배경이미지로써 크기가 자동으로 안잡히기 때문에 너비 높이 적어줌 */
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+}
+.sliderWrap .slider.s1 {
+    background-image: url(./이미지/slider04.jpg);
+}
+.sliderWrap .slider.s2 {
+    background-image: url(./이미지/slider05.jpg);
+}
+.sliderWrap .slider.s3 {
+    background-image: url(./이미지/slider06.jpg);
+}
+.sliderWrap .slider span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+```
+- css 전체 코드
+- position: absolute를 주면 너비, 높이가 자동으로 안되서 적어줘야함
+    - .sliderWrap 은 position:relative 라서 블록 요소 기본 동작이 살아있음. 블록 요소는 너비를 안줘도 부모 너비를 자동으로 꽉 채움
+    - position: relative  → 블록 요소 성질 유지 → 너비 자동
+    - position: absolute  → 블록 요소 성질 사라짐 → 너비 높이 둘다 직접 줘야 함
+- 앞의 유형들은 img 태그를 사용함. 그래서 이미지 자체 크기가 있어서, 박스 크기가 자동으로 잡혔음. 이번엔 img 가 아닌 배경 이미지로 처리함으로써, .slider 안에 span 밖에 없으므로 크기가 자동으로 안잡혀서 width, height를 직접 줘야함
+- img 태그는 이미지 자체가 콘텐츠라서 브라우저가 이미지 크기를 읽어서 박스 크기를 자동으로 잡아줌. but 배경 이미지는 꾸미기용 스타일이라서 브라우저가 크기 계산을 안함 => 배경 이미지를 쓸때는 항상 너비와 높이를 적어줘야함 
+
+background-repeat: no-repeat 
+- 배경 이미지는 기본적으로 타일처럼 반복됨. 그래서 1번만 나오게 함
+
+background-position: center
+- 배경이미지가 영역보다 작거나 클떄 어느 위치에 놓을지 정함. center는 정중앙
+
+background-size: cover
+- 배경이미지가 영역을 빈틈없이 꽉 채우게 함. 이미지 비율은 유지하면서 영역을 전부 덮어써버림. 반응영에서 화면 크기가 바뀌어도 이미지가 항상 꽉 차보이게 하려할떄 사용
+
+이 세개를 같이 사용하면, 어떤 화면 크기에서도 이미지가 자연스럽게 보임
+- no-repeat  → 이미지 반복 방지
+- center     → 항상 정중앙에 위치
+- cover      → 크기 상관없이 꽉 채움
+
+---
+
+``` javascript
+<script>
+    $(function(){
+        let currentIndex = 0;
+
+        setInterval(() => {
+            let nextIndex = (currentIndex + 1) % 3;
+
+            $('.slider').eq(currentIndex).fadeOut(1200);
+            $('.slider').eq(nextIndex).fadeIn(1200);
+
+            currentIndex = nextIndex;
+        }, 3000);
+    })
+</script>
+```
+- S-4 제이쿼리 전체 코드
+- 궁금한 점 : S-2, S-3 유형은 마지막 이미지 뒤에 복사본을 추가함으로써 자연스럽게 전환되도록 했는데, S-1, S-4 유형은 왜 복사본을 사용하지 않는가?
+    - S-1, S-4 유형은 제자리에서 전환, S-2, S-3 유형은 슬라이드가 옆으로 또는 위아래로 이동함. 이동방향이 있으므로 끝에서 처음으로 돌아올때 자연스럽게 전환이 필요했음
+
+---
+
+``` javascript
+<script>
+    window.onload = function(){
+        let currentIndex = 0;
+        const slider = document.querySelectorAll('.slider');
+
+        // css 에서 주석처리한 부분을 js 로 처리
+        slider.forEach(el => el.style.opacity = '0');
+        slider[0].style.opacity = '1';
+
+        setInterval(() => {
+            let nextIndex = (currentIndex + 1) % slider.length;
+
+            slider[currentIndex].style.opacity = '0';
+            slider[nextIndex].style.opacity = '1';
+            slider.forEach(el => el.style.transition = 'all 1s'); // 1초동안 전환
+
+            currentIndex = nextIndex;
+        }, 3000)
+    }
+</script>
+```
+- S-4 js 전체코드
