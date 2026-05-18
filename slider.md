@@ -613,9 +613,11 @@ slider.forEach(img => img.style.transition = 'all 1s')
 ```
 - css 전체 코드
 - position: absolute를 주면 너비, 높이가 자동으로 안되서 적어줘야함
-    - .sliderWrap 은 position:relative 라서 블록 요소 기본 동작이 살아있음. 블록 요소는 너비를 안줘도 부모 너비를 자동으로 꽉 채움
-    - position: relative  → 블록 요소 성질 유지 → 너비 자동
-    - position: absolute  → 블록 요소 성질 사라짐 → 너비 높이 둘다 직접 줘야 함
+    - .sliderWrap 은 position:relative 라서 블록 요소 기본 동작이 살아있음. 블록 요소는 너비를 안줘도 부모 너비를 자동으로 꽉 채움. 그러나 S-5 같은 경우 부모가 flex이기 때문에 너비가 자동으로 안잡혀서 너비를 직접 줘야함
+    - 블록요소 일 경우
+        - position: relative  → 너비 자동 , 높이 직접 줘야 함
+        - 부모가 flex + position: relative → 너비 직접 줘야 함, 높이 직접 줘야 함
+        - position: absolute → 너비 높이 둘 다 직접 줘야 함
 - 앞의 유형들은 img 태그를 사용함. 그래서 이미지 자체 크기가 있어서, 박스 크기가 자동으로 잡혔음. 이번엔 img 가 아닌 배경 이미지로 처리함으로써, .slider 안에 span 밖에 없으므로 크기가 자동으로 안잡혀서 width, height를 직접 줘야함
 - img 태그는 이미지 자체가 콘텐츠라서 브라우저가 이미지 크기를 읽어서 박스 크기를 자동으로 잡아줌. but 배경 이미지는 꾸미기용 스타일이라서 브라우저가 크기 계산을 안함 => 배경 이미지를 쓸때는 항상 너비와 높이를 적어줘야함 
 
@@ -680,3 +682,134 @@ background-size: cover
 </script>
 ```
 - S-4 js 전체코드
+
+---
+
+### S-5
+반응형 좌우 슬라이드
+``` html
+<article id="slider">
+    <div class="sliderWrap">
+        <div class="slider s1">
+            <span>이미지1</span>
+        </div>
+        <div class="slider s2">
+            <span>이미지2</span>
+        </div>
+        <div class="slider s3">
+            <span>이미지3</span>
+        </div>
+    </div>
+</article>
+```
+- S-5 html 전체 코드
+
+---
+
+``` css
+#slider {
+    overflow: hidden;
+}
+.sliderWrap {
+    width: 400%; /* 가로 정렬 이기때문에 너비는 400%됨 */
+    height: 100%; 
+    display: flex; /* 가로정렬 */
+}
+.sliderWrap .slider {
+    position: relative;
+    width: 100%; 
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.sliderWrap .slider.s1 {
+    background-image: url(./이미지/slider04.jpg);
+}
+.sliderWrap .slider.s2 {
+    background-image: url(./이미지/slider05.jpg);
+}
+.sliderWrap .slider.s3 {
+    background-image: url(./이미지/slider06.jpg);
+}
+.sliderWrap .slider span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;  
+    background-color: rgba(255, 255, 255, 0.4);
+}
+```
+- css 전체 코드
+width: 400%, height: 100%
+- 슬라이드가 가로로 세개 + 복사본 1개라서 sliderWrap의 4배 너비를 가져야함, height는 부모인 #slider 높이를 물려받기 위해 줌
+
+- 부모가 일반 블록 요소 -> 너비 자동으로 채워짐
+- but 부모가 display: flex 면 너비가 자동으로 안잡혀서 넣어줌
+- (+) 블록요소 일 경우
+        - position: relative  → 너비 자동 ✅, 높이 직접 줘야 함
+        - 부모가 flex + position: relative → 너비 직접 줘야 함, 높이 직접 줘야 함
+        - position: absolute → 너비 높이 둘 다 직접 줘야 함
+
+.slider에 너비도 같이 준 이유?
+- position: relative라도 display: flex의 자식이 되면 너비가 자동으로 안잡힘. 그래서 width: 100%를 줘야 3개가 균등하게 나뉨
+
+span에 width, height 를 안 준 이유?
+- span 은 absolute이지만, 안에 텍스트가 있기 때문에 크기가 자동으로 잡힘. img 처럼 콘텐츠가 크기를 결정해줌
+
+---
+
+``` javascript 
+<script>
+    $(function(){
+        let currentIndex = 0; // 현재 이미지
+
+        $('.sliderWrap').append($('.slider').first().clone(true)); // 첫번째 이미지를 복사해서 마지막에 추가
+
+        setInterval(function(){
+            currentIndex++;
+
+            $('.sliderWrap').animate({marginLeft: -currentIndex * 100 + "%"}, 600);
+
+            if(currentIndex == 3){
+                setTimeout(function(){
+                    $('.sliderWrap').animate({marginLeft: 0}, 0); // 애니메이션 정지
+
+                    currentIndex = 0; // 현재 이미지 초기화
+                }, 700);
+            }
+        }, 3000)
+    })
+</script>
+```
+- S-5 제이쿼리 전체코드
+
+``` javascript 
+<script>
+    window.onload = function(){
+        let currentIndex = 0;
+        const sliderWrap = document.querySelector('.sliderWrap');
+        const slider = document.querySelectorAll('.slider');
+        const sliderClone = sliderWrap.firstElementChild.cloneNode(true);
+
+        sliderWrap.appendChild(sliderClone);
+
+        setInterval(() => {
+            currentIndex++;
+
+            sliderWrap.style.marginLeft = -currentIndex * 100 + "%";
+            sliderWrap.style.transition = "all 600ms";
+
+            if(currentIndex == slider.length){
+                setTimeout(() => {
+                    sliderWrap.style.transition = "0s";
+                    sliderWrap.style.marginLeft = "0";
+                    currentIndex = 0;
+                }, 700);
+            }
+        }, 3000);
+    }
+</script>
+```
+- S-5 js 전체코드
