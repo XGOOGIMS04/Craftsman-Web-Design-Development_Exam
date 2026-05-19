@@ -813,3 +813,121 @@ span에 width, height 를 안 준 이유?
 </script>
 ```
 - S-5 js 전체코드
+
+---
+
+### S-6 
+반응형 세로 슬라이드
+
+```css
+#slider {
+    height: calc(100vh - 120px);
+    overflow: hidden;
+}
+.sliderWrap {
+    width: 100%;
+    height: 300vh;
+}
+.sliderWrap .slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.sliderWrap .slider.s1 {
+    background-image: url(./이미지/slider04.jpg);
+}
+.sliderWrap .slider.s2 {
+    background-image: url(./이미지/slider05.jpg);
+}
+.sliderWrap .slider.s3 {
+    background-image: url(./이미지/slider06.jpg);
+}
+.sliderWrap .slider span{
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 60px);
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+```
+#slider 높이가 calc(100vh - 120px) 반응형   
+    - 반응형임
+    - main 높이 - footer높이
+
+% 와 vh 차이
+- % : 부모 요소의 height기준, 부모 height가 반드시 지정되있어야함
+- vh : 브라우저 화면 높이 기준, 부모 height와 상관없음
+
+.sliderWrap 높이가 300vh인 이유?
+- 각각의 .slider 가 100vh이기 때문
+
+- 반응형 가로 슬라이드 : width 값만 늘림, height는 부모 따라감
+- 반응형 세로 슬라이드 : height를 여러 화면 크기만 큼 늘려야함, vh 사용
+
+top: calc(50% - 60px);
+- 슬라이드가 120px 더 큼 -> 중앙도 60px 아래로 내려감 -> 그래서 60px 위로 다시 올림
+
+---
+
+``` javascript
+<script>
+    $(function(){
+        let currentIndex = 0;
+        $('.sliderWrap').append($('.slider').first().clone(true));
+
+        setInterval(() => {
+            currentIndex++;
+
+            $('.sliderWrap').animate({marginTop: -currentIndex * 100+ "vh"}, 600);
+
+            if(currentIndex == 3){
+                setTimeout(() => {
+                    $('.sliderWrap').animate({marginTop: 0}, 0);
+                    currentIndex = 0;
+                },700)
+            }
+        }, 3000);
+    })
+</script>
+```
+- S-6 제이쿼리 전체 코드
+
+---
+
+``` javascript
+<script>
+    window.onload = function(){
+        let currentIndex = 0;
+        const sliderWrap = document.querySelector('.sliderWrap');
+        const slider = document.querySelectorAll('.slider');
+        const sliderClone = sliderWrap.firstElementChild.cloneNode(true);
+
+        sliderWrap.appendChild(sliderClone);
+
+        setInterval(() => {
+            currentIndex++;
+
+            sliderWrap.style.transform = "translateY(-" + (currentIndex * 100) + "vh)"; /* 새로 배운 것 */
+            sliderWrap.style.transition = "all 0.6s";
+
+            if(currentIndex == slider.length){
+                setTimeout(() => {
+                    sliderWrap.style.transition = "0s";
+                    sliderWrap.style.transform = "transitionY (0)"; /* 새로 배운것 */
+                    currentIndex = 0;
+                }, 700)
+            }
+        }, 3000);
+    }
+</script>
+```
+- S-6 js 전체 코드
+
+transform: translateY() : 요소를 위아래로 이동시킴.marginTop이랑 결과는 같음
+- css : transform: translateY(-100vh);
+- 100vh 부분이 숫자가 매번 바뀌기 때문에 변수를 끼워넣기 위해 (currentIndex * 100)
+- currentIndex = 1 → translateY(-100vh)  → 한 칸 위로 / currentIndex = 2 → translateY(-200vh)  → 두 칸 위로
