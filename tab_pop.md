@@ -146,3 +146,108 @@
     - 탭2 클릭 -> index = 1 -> tabCont[1] 보임
 
 전체흐름 : 탭2클릭 -> 모든 버튼 active 제거, 탭2에 active 추가(밑줄생김) -> 모든 내용 숨김 -> 내용2 보임
+
+---
+
+### P-1
+팝업 
+
+``` html
+<main id="contents">
+    <section class="content3"> 
+        <a href="#" class="popup-btn">팝업</a> <!-- 추가함 -->
+    </section>
+</main>
+<!-- //contents --> 
+
+<div class="popup-view">
+    <a href="#" class="popup-close">닫기</a>
+</div>
+<!--  // popup-view-->
+```
+- P-1 html 전체 코드
+
+---
+
+``` css
+/* popup */
+#wrap {
+    position: relative; /* 박스를 기준으로 가운데 정렬 기준점 */
+}
+.content3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup-btn {
+    background-color: rgba(255, 255, 255, 0.6);
+    display: inline-block; /* 왜 그냥 블록이 아닌가 */
+    padding: 10px;
+
+}
+.popup-view {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background-color: #a2a2a2;
+    border: 3px solid #000;
+    z-index: 1000; /* 다른 요소들 위에 뜨게 */
+    display: none; /* 처음엔 숨겨둠 */
+}
+.popup-close {
+    background-color: #fff;
+    display: inline-block;
+    padding: 10px;
+}
+```
+- P-1 css 전체코드
+
+`#wrap {position: relative;}`
+- 팝업화면 정중앙 뜨도록 기준점을
+
+`.content3 { display: flex; align-items: center;justify-content: center;}`
+- 팝업 버튼을 content3 안에서 정중앙에 배치
+    -  display: flex; -> 정렬기능 스위치 on, 이걸 해야 아랫거 작동 가능
+    - align-items: center     → 세로 중앙
+    - justify-content: center → 가로 중앙
+
+`.popup-btn {display: inline-block;}`
+- a는 인라인 이라서 padding 이 안먹힘. block 을 주면 버튼이 가로로 꽉 차버림. 그래서 inline-block 으로 padding은 먹히면서 크기는 내용물에 맞게 함
+
+---
+
+``` javascript
+<script>
+    $(function(){
+        $(".popup-btn").click(function(){
+            $(".popup-view").show();
+        });
+        $(".popup-close").click(function(){
+            $(".popup-view").hide();
+        });
+    })
+</script>
+```
+- P-1 제이쿼리 전체 코드
+- popup-btn 버튼을 클릭하면 popup-view를 보이게 하라
+- popup-close 버튼을 클릭하면 popup-view를 가려라
+
+---
+
+``` javascript
+<script>
+    window.onload = function(){
+        document.querySelector(".popup-btn").addEventListener("click", function(){
+            document.querySelector(".popup-view").style.display = "block";
+        });
+        document.querySelector(".popup-close").addEventListener("click", function(){
+            document.querySelector(".popup-view").style.display = "none";
+        })
+
+    }
+</script>
+```
+- P-1 js 전체 코드
