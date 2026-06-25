@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+.txt1 .t1_1 {
+    font-family: '궁서', serif;
+}
+.txt1 .t1_2 {
+    font-size: 30px;
+}
+.txt1 .t1_3 {
+    letter-spacing: -2px;
+}
+.txt1 .t1_4 {
+    line-height: 50px;
+    background: #fc6;
+}
+
+.txt2 .t2_1 {
+    font-weight: normal;
+}
+.txt2 .t2_2 {
+    font-weight: bold;
+}
+
+.txt3 .t3_1 {
+    text-decoration: overline;
+}
+.txt3 .t3_2 {
+    text-decoration: underline;
+}
+.txt3 .t3_3 {
+    text-decoration: line-through;
+}
+.txt3 a {
+    text-decoration: none;
+}
+
+.txt4 p {
+    background: #fc6;
+}
+.txt4 .t4_1 {
+    text-indent: 20px;
+}
+.txt4 .t4_2 {
+    text-indent: -20px;
+}
+
+.txt5 div {
+    background: #fc6;
+}
+.txt5 .t5_1 {
+    text-align: left;
+}
+.txt5 .t5_2 {
+    text-align: center;
+}
+.txt5 .t5_3 {
+    text-align: right;
+}

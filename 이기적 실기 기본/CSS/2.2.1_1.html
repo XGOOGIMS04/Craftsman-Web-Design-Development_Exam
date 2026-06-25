@@ -1,0 +1,23 @@
+<!-- css 우선순위_내부 스타일 적용 40p-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 우선순위(내부 스타일)</title>
+    <style>
+        /* css는 선택자가 구체적으로 작성된 순서에 따라 우선 적용이므로, 빨간색 적용 */
+        p {
+            color: blue;
+        }
+
+        /* 구체적으로 선택된 p.red가 적용되어 글자색상이 빨간색 입니다. */
+        p.red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p class="red" id="green">텍스트는 무슨 색 일까요?</p>
+</body>
+</html>

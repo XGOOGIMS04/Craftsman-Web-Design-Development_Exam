@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+.box1 {
+    background: #fc6;
+}
+.box1 p {
+    background-color: #fab62d;
+}
+.box1_2 {
+    background-color: #fc6;
+}
+.box1_2 p {
+    background-color: #fab62d;
+    display: inline-block; /* 블록요소 p를 인라인 요소 변경시 가로로 나열 */
+    width: 150px; /* 인라인 블록요소 너비, 높이 설정 가능 */
+    height: 50px;
+}
+.box1_3 {
+    background-color: #fc6;
+}
+.box1_3 p {
+    background-color: #fab62d;
+    display: inline; /* 블록요소로 인라인 요소 변경시 가로로 나열 */
+    width: 150px; /* 인라인 요소 width 설정 불가능 */
+    height: 50px;
+}
+
+.box2 {
+    background-color: #fe9191;
+}
+.box2 span {
+    background-color: #fcc; /* 인라인 요소로 가로로 나열, 너비.높이 설정 불가능*/
+}
+.box2_1 {
+    background-color: #fe9191;
+}
+.box2_1 span {
+    background-color: #fcc;
+    display: block; /* 블록요소 변경 */
+    width: 150px; /* 너비, 높이 설정 가능 */
+    height: 50px;
+}
+
+.box3 {
+    background-color: #fc6;
+    margin-top: 10px;
+    height: 50px;
+}
+.box3 span {
+    background-color: #fcc;
+    height: 50px; /* 인라인 블록이라 너비, 높이 설정 불가능 */
+    width: 150px;
+    display: none;
+}
+.box3:hover span { /* .box3에 마우스 오버시 span 태그 보임 */
+    display: inline-block;
+}

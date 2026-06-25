@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+/* 전체 선책자 : 모든 요소 선택 */
+* {
+    text-decoration: underline;
+}
+
+/* ID 선택자 : 특정 아이디 선택(#ID명) */
+#title {
+    color: red;
+}
+
+/* 요소 선택자 : 특정 요소 선택 */
+p {
+    background-color: yellow;
+}
+
+/* class 선택자 : 특정 Class 선택(.class명) */
+.blue {
+    color: blue;
+}

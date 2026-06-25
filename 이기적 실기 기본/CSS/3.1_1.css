@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.box1 {
+    width: 300px;
+    height: 150px;
+    background-color: pink;
+    margin: 20px;
+}
+
+.box2 {
+    width: 300px;
+    height: 150px;
+    background-color: skyblue;
+    padding: 20px;
+}
+
+.box3 {
+    width: 300px;
+    height: 150px;
+    border: 3px solid tomato;
+    border-top: none;
+    margin-top: 20px;
+}

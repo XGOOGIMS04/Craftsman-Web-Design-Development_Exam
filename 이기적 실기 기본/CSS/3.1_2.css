@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+/* 모든 div태그에게 너비, 높이, 테두리, 아래쪽 여백 적용 */
+div {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #000;
+    margin-bottom: 10px;
+}
+
+.bg1 {
+    background-color: skyblue;
+}
+
+.bg2 {
+    background-image: url(../HTML5/img/logo.png);
+}
+
+.bg3 {
+    background-image: url(../HTML5/img/logo.png);
+    background-repeat: no-repeat;
+}
+
+.bg4 {
+    background-image: url(../HTML5/img/logo.png);
+    background-repeat: no-repeat;
+    background-position: 50px 20px;
+}
+
+.bg5 {
+    background-image: url(../HTML5/img/logo.png);
+    background-repeat: no-repeat;
+    background-size: cover; /*가로 너비 채우기*/
+}
+
+/* 함축형 */
+.bg6 {
+    background: skyblue url(../HTML5/img/logo.png) no-repeat 50px 20px/50px;
+}

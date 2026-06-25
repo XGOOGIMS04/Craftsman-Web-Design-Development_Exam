@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+div {
+    background: #ccc;
+    width: 300px;
+}
+p {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    border: 1px solid #000;
+    background: #fc6;
+}
+.box1-2 { /* 자기자리 기준 */
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+.box2 { /* box2-2 기준을 줌 */
+    position: relative;
+}
+.box2-2 { /* box2 기준 */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.box3-2 { /* 화면을 기준 */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}

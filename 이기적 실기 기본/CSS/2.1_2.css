@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+/* 자식 선택자(>) : .parent 요소의 직계 자식인 p요소 선택 */
+.parent > p {
+    color: blue;
+    font-weight: bold;
+}
+
+/* 자손 선택자(공백) : .parent 요소의 모든 자손인 p요소 선택 */
+.parent p {
+    font-style: italic;
+}
+
+/* 속성 선택자 : target 속성을 가진 a요소 선택 */
+a[target]{
+    color: red;
+    text-decoration: none;
+}
+
+/* 속성 선택자 : target 속성이 _self인 a요소를 선택 */
+a[target="_self"] {
+    color: orange;
+    text-decoration: underline;
+}

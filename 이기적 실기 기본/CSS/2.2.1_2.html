@@ -1,0 +1,25 @@
+<!-- css 우선순위_내부 스타일 적용(2) 40p-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 우선순위(2)</title>
+    <style>
+        p {
+            color: blue;
+        }
+        p.red {
+            color: red;
+        }
+
+        /* ID 선택자가 우선순위가 높아 글자색이 초록색 */
+        #green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <p class="red" id="green">텍스트는 무슨 색 일까요?</p>
+</body>
+</html>

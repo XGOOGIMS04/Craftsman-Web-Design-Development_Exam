@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+h1 {
+    color: blue;
+    font-size: 24px;
+}
+p {
+    color: green;
+    background-color: yellow;
+}
