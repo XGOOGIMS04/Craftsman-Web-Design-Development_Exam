@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.inner {
+    width: 1200px;
+    margin: auto;
+}
+header {
+    height: 100px;
+    background-color: purple;
+}
+section {
+    height: 250px;
+    background-color: green;
+}
+.contents {
+    background-color: tomato;
+    height: 200px;
+    display: flex;
+}
+.con1 {
+    background-color: blue;
+    width: 600px;
+}
+footer {
+    background-color: #333;
+    height: 100px;
+}
