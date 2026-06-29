@@ -1,0 +1,34 @@
+<!-- mouseenter, mouseover 95p -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mouseover, mouseenter 차이</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./4.2_2.js"></script>
+    <style>
+        #box1, #box2 {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin-bottom: 20px;
+        }
+        .child {
+            width: 100px;
+            height: 100px;
+            background-color: lightcoral;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>mouseenter와 mouseover 차이</h2>
+    <div id="box1">
+        <div class="child">box1의 자식</div>
+    </div>
+    <div id="box2">
+        <div class="child">box2의 자식</div>
+    </div>
+</body>
+</html>
