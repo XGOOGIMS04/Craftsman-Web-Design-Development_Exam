@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* css 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 요소의 너비 유지 */
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: inherit; /* 링크의 글자 색상을 부모 요소로부터 상속받음 */
+}
+img {
+    vertical-align: top; /* 이미지 아래의 여백 제거, 상단 정렬 */
+    max-width: 100%; /* 이미지를 부모 요소의 너비에 맞춤(이미지 깨짐 방지) */
+}
+button {
+    cursor: pointer; /* 버튼을 손가락 커서로 표시 */
+}
+body {
+    background: #fff;
+    color: #333;
+}
+
+/* 레이아웃 스타일 작업 */
+.inner {
+    width: 1200px;
+    margin: auto;
+}
+header {
+    height: 100px;
+    background-color: rgb(206, 167, 167);
+}
+.slide {
+    height: 300px;
+    background-color: rgb(160, 160, 197);
+}
+.contents { /* 컨테이너 역할 */
+    height: 200px;
+    display: flex; /* 자식 article 수평 나열, 이때 자식요소는 부모 요소 높이만큼 들어가므로 부모 요소에 높이값 넣어줌  */
+    background-color: rgb(234, 191, 234);
+}
+.contents article { /* 태그로 분할 */
+    width: 400px;
+}
+.contents .gall {
+    background-color: rgb(186, 239, 186);
+}
+footer {
+    height: 100px;
+    background-color: rgb(192, 192, 126);
+}
