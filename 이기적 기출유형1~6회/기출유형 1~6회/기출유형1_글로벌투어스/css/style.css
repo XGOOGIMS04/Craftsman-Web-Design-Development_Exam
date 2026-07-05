@@ -30,8 +30,47 @@ body {
     margin: auto;
 }
 header {
+    position: relative;
     height: 100px;
-    background-color: rgb(206, 167, 167);
+    background-color: #fff;
+    padding-top: 35px; /* header에 딱 붙은 형태로 시작해서 안쪽 여백 부여 */
+    padding-left: 10px; /* header에 딱 붙은 형태로 시작해서 안쪽 여백 부여 */
+}
+nav {
+    position: absolute; /* 공중에 띄워 서브메뉴가 펼져질 수 있도록 */
+    top: 40px;
+    right: 10px;
+    z-index: 10;
+}
+nav > ul {
+    display: flex; /* 메뉴 나란히 */
+}
+nav > ul > li {}
+nav > ul > li > a {
+    display: block;
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px; /* a의 영역이 글자 크기만큼인데, 패딩을 줌으로써 크기 영역을 넓혀줌 */
+    background: #3d155f;
+    color: #fff;
+}
+nav > ul > li:hover > a { /* 웹보이랑 조금 다름 */
+    background: #f96167;
+}
+.sub {
+    display: none;
+}
+.sub  li a {
+    display: block;
+    background: #fff;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+.sub li a:hover {
+    background: #3d155f;
+    color: #fff;
 }
 .slide {
     height: 300px;
