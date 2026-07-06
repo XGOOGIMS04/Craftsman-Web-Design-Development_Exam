@@ -24,11 +24,18 @@ body {
     color: #333;
 }
 
+/* popup 기준점 */
+.wrap {
+    position: relative;
+}
+
 /* 레이아웃 스타일 작업 */
 .inner {
     width: 1200px;
     margin: auto;
 }
+
+/* header */
 header {
     position: relative;
     height: 100px;
@@ -72,22 +79,202 @@ nav > ul > li:hover > a { /* 웹보이랑 조금 다름 */
     background: #3d155f;
     color: #fff;
 }
+
+/* slider */
 .slide {
     height: 300px;
-    background-color: rgb(160, 160, 197);
+    overflow: hidden; /* 이미지 오른쪽 정렬상태에서 넘치는거 숨김 */
 }
+.slide ul { /* 슬라이드 가로 정룔 */
+    display: flex;
+    width: 3600px;
+    height: 300px;
+}
+.slide ul li {
+    position: relative; /* 슬라이드 글자 스타일 기준점 */
+    width: 1200px;
+    height: 300px;
+}
+.slide ul li a {
+    display: block;
+    height: 100%;
+}
+.slide ul li.s1 { /* ㅣi .s1이 아닌 li.s1임 */
+    background: url(../images/s1.jpg) no-repeat center/cover;
+}
+.slide ul li.s2 {
+    background: url(../images/s2.jpg) no-repeat center/cover;
+}
+.slide ul li.s3 {
+    background: url(../images/s3.jpg) no-repeat center/cover;
+}
+.slide ul li h2 { /* 글자 스타일 */
+    background: rgba(61, 21, 95, 0.7);
+    position: absolute; /* 글자 스타일 올림 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 50px;
+    font-size: 28px;
+    color: #fff;
+}
+.slide ul li h2 span { /* 글자 스타일 */
+    color: #f96167;
+}
+
+/* contents */
 .contents { /* 컨테이너 역할 */
     height: 200px;
     display: flex; /* 자식 article 수평 나열, 이때 자식요소는 부모 요소 높이만큼 들어가므로 부모 요소에 높이값 넣어줌  */
-    background-color: rgb(234, 191, 234);
 }
 .contents article { /* 태그로 분할 */
     width: 400px;
 }
-.contents .gall {
-    background-color: rgb(186, 239, 186);
+
+/* contents .notice */
+.contents .notice {
+    padding: 10px;
 }
+.notice h2 { /* 공지사항 스타일 */
+    background: #3d155f;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    width: 120px;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 20px;
+}
+.notice ul {
+    background: #3d155f;
+    padding: 5px 15px;
+}
+.notice ul li {
+    border-bottom: 1px dashed #fff;
+}
+.notice ul li:last-child {
+    border-bottom: none;
+}
+.notice ul li a {
+    display: block;
+    padding: 5px 0;
+    position: relative; /* span 기준 역할 */
+    color: #fff;
+}
+.notice ul li p {
+    width: 260px;
+    white-space: nowrap; /* 텍스트가 영역보다 넘칭때 줄바뚬 안되도록 설정 */
+    overflow: hidden; /* 넘친 텍스트 숨김 */
+    text-overflow: ellipsis; /* 말줌임표 */
+}
+.notice ul li span {
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+/* contents gallery */
+.contents .gall {
+    padding: 10px;
+}
+.gall h2 {
+    background: #f96167;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    width: 120px;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 20px;
+}
+.gall ul {
+    display: flex;
+    background: #f96167;
+    padding: 10px;
+    gap: 10px;
+}
+.gall ul li img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover; /* 이미지가 요소의 킉에 맞춰 잘리더라도 비율 유지하며 채우도록 설정 */
+}
+.gall ul li:hover {
+    opacity: 0.7; /* 마우스 올렸을때 투명도 */
+}
+
+
+/*  contents go */
+.contents .go {
+    background: #eee;
+    padding: 10px;
+}
+.go h2 {
+    color: #3d155f;
+    margin-bottom: 20px;
+}
+.go ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.go ul li {
+    text-align: center;
+}
+.go ul li a {
+    display: block;
+    height: 100%;
+}
+.go ul li p {
+    width: 80px;
+    height: 80px;
+    background: #3d155f;
+    padding-top: 20px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+}
+.go ul li span {
+    font-weight: bold;
+}
+
+/* footer */
 footer {
     height: 100px;
     background-color: rgb(192, 192, 126);
+}
+
+
+/* popup */
+.popup {
+    position: absolute;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #f96167;
+    border-radius: 20px;
+    z-index: 9999;
+    display: none; /* 스크립트 처리 */
+}
+.popup h2 {
+    color: #f96167;
+    margin-bottom: 20px;
+}
+.popup .text {
+    margin: 20px 0;
+}
+.popup .close {
+    text-align: right;
+}
+.popup .close button {
+    background: #f96167;
+    border: 0;
+    padding: 10px;
+    color: #fff;
+
+
+}
+.popup .close button:hover {
+    background: #3d155f;
 }
