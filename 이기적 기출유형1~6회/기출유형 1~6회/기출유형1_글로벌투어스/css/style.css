@@ -237,8 +237,39 @@ nav > ul > li:hover > a { /* 웹보이랑 조금 다름 */
 
 /* footer */
 footer {
+    position: relative; /* sns 영역을 공중에 띄우는 기준 */
     height: 100px;
-    background-color: rgb(192, 192, 126);
+    background: #666;
+    color: #fff;
+    padding-left: 20px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+.fsns {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    top: 30px;
+    right: 30px;
+}
+.fsns li a {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 10px;
+}
+.fsns li:nth-child(1) a {
+    background: #3f5b9a;
+}
+.fsns li:nth-child(2) a {
+    background: #47b749;
+}
+.fsns li:nth-child(3) a {
+    background: red;
 }
 
 
