@@ -23,6 +23,9 @@ body {
     background: #fff;
     color: #333;
 }
+.wrap {
+    position: relative; /* 팝업창 기준 */
+}
 
 header {
     height: 100px;
@@ -119,26 +122,213 @@ nav > ul > li > a:hover {
     left: 30px;
     transform: translateY(-50%);
 }
+
+/* contents */
 .contents {
     width: 1200px;
     height: 200px;
     margin: auto;
     display: flex;
-    background-color: #ff884d;
 }
 .contents article {
     width: 400px;
 }
-.contents .banner {
-    background-color: #2cc;
+.con {
+    padding: 10px;
+    position: relative;
 }
+.tabmenu {
+    display: flex;
+}
+.tabmenu > li {
+    width: 150px;
+    background: #d3d3d3;
+}
+.tabmenu > li > h2 > a {
+    display: block;
+    text-align: center;
+    padding: 5px 0;
+}
+.tabmenu > li.on {
+    background: #003366;
+    color: #fff;
+}
+.tabcon {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: #003366;
+    padding: 5px;
+    height: 140px;
+}
+
+/* 공지사항 */
+.notice ul {
+    padding: 0 15px;
+}
+.notice ul li {
+    border-bottom: 1px dashed #fff;
+}
+.notice ul li:last-child {
+    border-bottom: none;
+}
+.notice ul li a {
+    display: block;
+    padding: 5px 0;
+    position: relative;
+    color: #fff;
+}
+.notice ul li p {
+    width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.notice ul li span {
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+/* 갤러리 */
+.gall {
+    display: none;
+}
+.gall ul {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+.gall ul li img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+/* 배너 */
+.contents .banner {
+    background: #fff;
+    padding: 10px;
+}
+.banner h2 {
+    color: #003366;
+    margin-bottom: 10px;
+}
+.banner a {
+    display: block;
+    height: 130px;
+    background: url(../images/banner.jpg) center/cover;
+    border-radius: 30px;
+    overflow: hidden;
+    color: #fff;
+}
+.banner div {
+    height: 100%;
+    background: rgba(0,51, 102, 0.8);
+    padding: 20px;
+}
+.banner div h3 {
+    margin-bottom: 10px;
+    color: #f4d01f;
+}
+.banner div h3 span {
+    font-weight: 300;
+}
+
+/* 바로가기 */
+.go {
+    padding: 10px;
+}
+.go h2 {
+    color: #003366;
+    margin-bottom: 20px;
+}
+.go ul {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    text-align: center;
+}
+.go ul li p {
+    width: 80px;
+    height: 80px;
+    background: #003366;
+    padding-top: 20px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.go ul li span {
+    font-weight: bold;
+}
+
+/* footer */
 footer {
     height: 120px;
     background-color: #666;
+    color: #fff;
 }
 footer .inner {
     width: 1200px;
     height: 100%;
     margin: auto;
-    background-color: #fc6;
+    background-color: #666;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+.fmenu {
+    display: flex;
+    gap: 10px;
+}
+.fmenu li {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+    font-size: 14px;
+}
+.fmenu li:last-child {
+    border-right: none;
+}
+
+/* 팝업창 */
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+}
+.popcon {
+    position: relative;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #003366;
+    text-align: center;
+    padding: 20px;
+    color: #fff;
+    border-radius: 20px;
+}
+.popcon h2 {
+    margin-bottom: 20px;
+}
+.popcon .text {
+    margin: 20px 0;
+}
+.popcon .close {
+    text-align: center;
+}
+.popcon .close button {
+    background: #330;
+    border: 0;
+    padding: 10px;
+    color: #fff;
+}
+.popcon .close button:hover {
+    background: #f4d01f;
+    color: #000;
 }

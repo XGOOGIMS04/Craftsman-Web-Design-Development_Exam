@@ -20,4 +20,28 @@ $(function(){
         $(".slide ul li").eq(i).fadeIn();
     }
     setInterval(slide, 3000);
+
+    // 텝메뉴
+    let t;
+    $(".tabmenu > li").click(function(){
+        $(".tabmenu > li").removeClass("on");
+        $(this).addClass("on");
+
+        t = $(this).index();
+        console.log(t);
+
+        $(".tabcon").hide();
+        $(".tabcon").eq(t).show();
+
+        return false;
+    })
+
+    // 팝업
+    $(".pop").click(function(){
+        $(".popup").show();
+        return false;
+    })
+    $(".close button").click(function(){
+        $(".popup").hide();
+    })
 })
