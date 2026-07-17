@@ -23,17 +23,94 @@ body {
     background: #fff;
     color: #333;
 }
-
+.wrap {
+    position: relative;
+}
 header {
     width: 1340px;
     margin: auto;
     height: 100px;
-    background: red;
+    padding-top: 20px;
+    position: relative;
 }
+nav {
+    position: absolute;
+    top: 61px;
+    right: 0;
+    z-index: 10;
+}
+nav > ul {
+    display: flex;
+}
+nav > ul > li > a {
+    background: #1b3b86;
+    color: #fff;
+    padding: 10px 0;
+    display: block;
+    width: 160px;
+    text-align: center;
+}
+nav > ul > li:hover > a {
+    background: #212121;
+}
+.sub {
+    height: 125px;
+    background: #212121;
+    display: none;
+}
+.sub a {
+    background: #212121;
+    display: block;
+    padding: 5px;
+    text-align: center;
+    color: #fff;
+}
+.sub a:hover {
+    background: #1b3b86;
+}
+
+/* 슬라이드 */
 .slide {
-    background: blue;
     height: 300px;
+    position: relative;
 }
+.slide ul li {
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.slide ul li a {
+    display: block;
+    height: 100%;
+}
+.slide ul li.s1 {
+    background: url(../images/s1.jpg) no-repeat center/cover;
+    display: block;
+}
+.slide ul li.s2 {
+    background: url(../images/s2.jpg) no-repeat center/cover;
+}
+.slide ul li.s3 {
+    background: url(../images/s3.jpg) no-repeat center/cover;
+}
+.slide li h2 {
+    color: #1b3b86;
+    font-size: 35px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 20px;
+    transform: translate(-50%, 0);
+}
+.slide li h2 span {
+    color: #212121;
+}
+
 .contents {
     width: 1340px;
     margin: auto;
@@ -41,29 +118,221 @@ header {
 }
 .go {
     height: 100px;
-    background: purple;
     position: absolute;
     top: -100px;
     left: 0;
     width: 100%;
 }
+.go ul {
+    display: flex;
+    color: #fff;
+    height: 100%;
+}
+.go ul li {
+    flex-grow: 1;
+    text-align: center;
+    background: #1b3b86;
+}
+.go ul li:nth-child(even){
+    background: #212121;
+}
+.go ul li h2 {
+    font-size: 18px;
+}
+.go ul li img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.go ul li a {
+    display: block;
+    height: 100%;
+    padding-top: 30px;
+}
+
+/* 배너 */
 .banner {
     height: 250px;
-    background: pink;
+    background: #f4f8fb;
+    padding: 20px;
 }
+.banner a {
+    display: flex;
+    height: 100%;
+    gap: 30px;
+    align-items: center;
+}
+.banner .imgBox img {
+    width: 300px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.banner .txtBox {
+    flex-grow: 1;
+}
+.banner .txtBox h2 {
+    color: #1b3b86;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+.banner .txtBox .date {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.banner .arrow {
+    flex-grow: 1;
+    text-align: center;
+}
+
 .board {
     height: 250px;
     display: flex;
 }
 .board div {
     width: 50%;
+    padding: 20px;
 }
-.board .gall {
-    background: gray;
+.board div h2 {
+    background: #1b3b86;
+    color: #fff;
+    text-align: center;
+    width: 150px;
+    padding: 10px 0;
+    font-size: 20px;
 }
+.notice ul {
+    border-top: 3px solid #1b3b86;
+    padding: 5px 0;
+}
+.notice ul li:nth-child(even){
+    background: #ccc;
+}
+.notice ul li a {
+    display: block;
+    padding: 5px;
+    position: relative;
+}
+.notice ul li p {
+    width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.notice ul li span {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+/* 갤러리 */
+.gall ul {
+    display: flex;
+    gap: 20px;
+    border-top: 3px solid #1b3b86;
+    padding-top: 10px;
+}
+.gall ul li {
+    text-align: center;
+    font-weight: bold;
+}
+.gall ul li a {
+    display: block;
+    height: 100%;
+}
+.gall ul li:hover img {
+    opacity: 0.5;
+}
+.gall .box {
+    margin-bottom: 10px;
+}
+.gall .box img {
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+}
+
 footer {
     width: 1340px;
     height: 120px;
     margin: auto;
-    background: orange;
+    background: #666;
+    padding-left: 20px;
+    padding-top: 40px;
+    color: #fff;
+    position: relative;
+}
+footer div {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+footer .fsns {
+    display: flex;
+    gap: 5px;
+}
+footer .fsns a {
+    width: 30px;
+    height: 30px;
+    display: block;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 9px;
+}
+footer .fsns li:nth-child(1) a {
+    background: #47b749;
+}
+footer .fsns li:nth-child(2) a {
+    background: #3c5b9a;
+}
+footer .fsns li:nth-child(3) a {
+    background: red;
+}
+footer select {
+    margin-top: 10px;
+}
+footer .fcopy {
+    align-items: center;
+}
+
+/* 팝업 */
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+}
+.popcon {
+    position: absolute;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #1b3b86;
+    border-radius: 20px;
+}
+.popcon h2 {
+    color: #1b3b86;
+    margin-bottom: 20px;
+}
+.popup .text {
+    margin: 20px 0;
+}
+.popup .close {
+    text-align: right;
+}
+.popup .close button {
+    background: #1b3b86;
+    border: 0;
+    padding: 10px;
+    color: #fff;
+}
+.popup .close button:hover {
+    background: #333;
 }
